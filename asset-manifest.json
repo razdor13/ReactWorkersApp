@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ReactWorkersApp/static/css/main.dda7feb5.css",
+    "main.js": "/ReactWorkersApp/static/js/main.0bd9a8a8.js",
+    "index.html": "/ReactWorkersApp/index.html",
+    "main.dda7feb5.css.map": "/ReactWorkersApp/static/css/main.dda7feb5.css.map",
+    "main.0bd9a8a8.js.map": "/ReactWorkersApp/static/js/main.0bd9a8a8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dda7feb5.css",
+    "static/js/main.0bd9a8a8.js"
+  ]
+}
