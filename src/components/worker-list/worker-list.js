@@ -1,12 +1,18 @@
 import './worker-list.css'
 import WorkerListItem from '../worker-list-item/worker-list-item'
 
-const WorkerList = () => {
+const WorkerList = ({data}) => {
+
+    const elements = data.map((item) => {
+        console.log(item)
+        return (
+            <WorkerListItem {...item} /> //* name = {item.name} salary = {item.salary} *//
+        )
+    })
+
     return (
         <ul className="app-list list-group">
-            <WorkerListItem/>
-            <WorkerListItem/>
-            <WorkerListItem/>
+            {elements}
         </ul>
     )
 }
