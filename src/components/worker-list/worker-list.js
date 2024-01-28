@@ -4,7 +4,7 @@ import WorkerListItem from '../worker-list-item/worker-list-item'
 const WorkerList = ({data}) => {
 
     const elements = data.map((item) => {
-        console.log(item)
+        
         return (
             <WorkerListItem {...item} /> //* name = {item.name} salary = {item.salary} *//
         )

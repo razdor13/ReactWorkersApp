@@ -11,12 +11,12 @@ import './app.css';
 function App(){
 
     const data = [
-        {name : 'loridium k',salary : 1000, increase : false},
-        {name : 'Vojd tRALL',salary : 4000, increase : true},
-        {name : 'Mopser',salary : 3000, increase : false},
-        {name : 'loridium k',salary : 1000, increase : false},
-        {name : 'Vojd tRALL',salary : 4000, increase : false},
-        {name : 'Mopser',salary : 3000, increase : false},
+        {name : 'loridium k',salary : 1000, increase : false,like : false},
+        {name : 'Vojd tRALL',salary : 4000, increase : false,like : false},
+        {name : 'Mopser',salary : 3000, increase : false,like : false},
+        {name : 'loridium k',salary : 1000, increase : false,like : false},
+        {name : 'Vojd tRALL',salary : 4000, increase : false,like : false},
+        {name : 'Mopser',salary : 3000, increase : false,like : false},
 ]
 
     return (
