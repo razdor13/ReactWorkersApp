@@ -8,15 +8,20 @@ class WorkerAddForm extends Component{
             name : '',
             salary : ''
         }
+        
     }
 
     onValueChange = (e) => {
         this.setState({
             [e.target.name] : e.target.value
         })
-
+        
     }
-
+    onValueSabmit = (e) => {
+        const {onCreate} =this.props
+        e.preventDefault();
+        onCreate(this.state)
+    }
     render() {
         const {name,salary} = this.state
         return (<div className="app-add-form">
@@ -39,6 +44,7 @@ class WorkerAddForm extends Component{
                     />
 
                 <button type="submit"
+                        onClick={this.onValueSabmit}
                         className="btn btn-outline-light">Додати</button>
             </form>
     </div>)
