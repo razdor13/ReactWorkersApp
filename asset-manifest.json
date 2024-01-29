@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ReactWorkersApp/static/css/main.dda7feb5.css",
-    "main.js": "/ReactWorkersApp/static/js/main.d24c3646.js",
+    "main.js": "/ReactWorkersApp/static/js/main.60032ffe.js",
     "index.html": "/ReactWorkersApp/index.html",
     "main.dda7feb5.css.map": "/ReactWorkersApp/static/css/main.dda7feb5.css.map",
-    "main.d24c3646.js.map": "/ReactWorkersApp/static/js/main.d24c3646.js.map"
+    "main.60032ffe.js.map": "/ReactWorkersApp/static/js/main.60032ffe.js.map"
   },
   "entrypoints": [
     "static/css/main.dda7feb5.css",
-    "static/js/main.d24c3646.js"
+    "static/js/main.60032ffe.js"
   ]
 }
