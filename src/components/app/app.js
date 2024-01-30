@@ -10,66 +10,144 @@ import WorkerList from '../worker-list/worker-list';
 
 import './app.css';
 
-class App extends Component{
-
+class App extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            data : [
-                {name : 'loridium k',salary : 1000, increase : false,like : false, id : 1},
-                {name : 'Vojd tRALL',salary : 4000, increase : false,like : false, id : 2},
-                {name : 'Mz123',salary : 3000, increase : false,like : false, id : 3},
-                {name : '123 k',salary : 1000, increase : false,like : false, id : 4},
-                {name : 'Vo123jd tRALL',salary : 4000, increase : false,like : false, id : 5},
-                {name : 'fdsfs',salary : 3000, increase : false,like : false, id : 6},
-        ]
-        }
-        this.maxId = 7 
+            data: [
+                {
+                    name: "loridium k",
+                    salary: 1000,
+                    increase: false,
+                    rise: false,
+                    id: 1,
+                },
+                {
+                    name: "Vojd tRALL",
+                    salary: 4000,
+                    increase: false,
+                    rise: false,
+                    id: 2,
+                },
+                {
+                    name: "Mz123",
+                    salary: 3000,
+                    increase: false,
+                    rise: false,
+                    id: 3,
+                },
+                {
+                    name: "123 k",
+                    salary: 1000,
+                    increase: false,
+                    rise: false,
+                    id: 4,
+                },
+                {
+                    name: "Vo123jd tRALL",
+                    salary: 4000,
+                    increase: false,
+                    rise: false,
+                    id: 5,
+                },
+                {
+                    name: "fdsfs",
+                    salary: 3000,
+                    increase: false,
+                    rise: false,
+                    id: 6,
+                },
+            ],
+        };
+        this.maxId = 7;
+        
+              
+        
     }
 
     onDeleteItem = (id) => {
-        this.setState(({data})=>{
+        this.setState(({data}) => {
             // const index = data.findIndex(elem => elem.id === id)
             // const before = data.slice(0,index)
-            
+
             // const after = data.slice(index+1)
-            
+
             // const newArr = [...before,...after]
             // console.log(newArr)
             return {
                 // data : newArr
-                data : data.filter(item => item.id !== id)
-            }
-        })
-    }
+                data: data.filter((item) => item.id !== id),
+            };
+        });
+    };
     onCreate = (stateOfform) => {
-        
         this.setState(() => {
-            
             return {
-                data : [ ...this.state.data , {...stateOfform,increase : false,like : false, id: this.maxId++} ]
-            }
-        })
-    }
+                data: [
+                    ...this.state.data,
+                    {
+                        ...stateOfform,
+                        increase: false,
+                        rise: false,
+                        id: this.maxId++,
+                    },
+                ],
+            };
+        });
+    };
+
+    onTogleIncrease = (id) => {
+        this.setState(({data}) => ({
+            data: data.map((item) => {
+                if (item.id === id){
+                    return {
+                        ...item , increase : !item.increase
+                    }
+                }
+                return item;
+            }),
+        }));
+        
+    };
+    onTogleRise = (id) => {
+        this.setState(({data}) => ({
+            data: data.map((item) => {
+                if (item.id === id){
+                    return {
+                        ...item , rise : !item.rise
+                    }
+                }
+                return item;
+            }),
+        }));
+    };
+
+  
+
 
     render() {
+        const quantityWorkers = this.state.data.length;
+        const quantityIncrease = this.state.data.filter(item => item.increase).length;
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo
+                    quantityIncrease = {quantityIncrease}
+                    quantityWorkers = {quantityWorkers}
+                />
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/> 
+                    <SearchPanel />
+                    <AppFilter />
                 </div>
-    
-                <WorkerList 
-                data = {this.state.data}
-                onDelete={this.onDeleteItem}         
+
+                <WorkerList
+                    data={this.state.data}
+                    onDelete={this.onDeleteItem}
+                    onTogleIncrease={this.onTogleIncrease}
+                    onTogleRise={this.onTogleRise}
                 />
-                <WorkerAddForm
-                onCreate={this.onCreate}
-                />
+                <WorkerAddForm onCreate={this.onCreate} />
             </div>
-        )
+        );
     }
 }
 
