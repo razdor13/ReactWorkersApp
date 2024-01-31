@@ -1,11 +1,10 @@
 import './worker-list.css'
 import WorkerListItem from '../worker-list-item/worker-list-item'
 
-const WorkerList = ({data, onDelete ,onTogleIncrease,onTogleRise,id}) => {
+const WorkerList = ({data, onDelete ,onTogleIncrease,onTogleRise,}) => {
 
     const elements = data.map((item) => {
-        const {id} = item
-        console.log(item)        
+        const {id} = item        
         return (
             <WorkerListItem 
             key = {id}
