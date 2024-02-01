@@ -23,7 +23,7 @@ class App extends Component {
                 {name: "fdsfs",salary: 3000,increase: false,rise: true,id: 6,},
             ],
             term: '',
-            filter: {rises : false,searhSalary : false}
+            filter: {rises : false, searhSalary : false, all : false}
         };
         this.maxId = 7;
         
@@ -97,8 +97,13 @@ class App extends Component {
             return item.name.indexOf(term) > -1
         })
     }
+    onNonfilter = () => {
+        this.setState(()=>{
+            return {filter : {rises : false, searhSalary : false, all : true}}
+        })
+    }
     onUpdateFilterRise = () =>{
-        
+        console.log(222)
         this.setState(({filter})=>{
             return  filter.rises =!filter.rises
         })
@@ -113,8 +118,8 @@ class App extends Component {
     onUpdateSrch = (term) => {
         this.setState({term})
     }
-    filterWorker = ({data , filter}) => {
-        console.log(data.filter((item) => item.salary > 1000))
+    
+    onfilterWorker = ({data , filter}) => {
             if (filter.rises && filter.searhSalary)
             {   
                 return data.filter((item) => item.salary > 1000).filter((item) => item.rise)
@@ -123,7 +128,7 @@ class App extends Component {
             {
                 return data.filter((item) => item.rise)
             }
-            else if (filter.searhSalarym)
+            else if (filter.searhSalary)
             {   
                 return data.filter((item) => item.salary > 1000)
             }
@@ -138,7 +143,7 @@ class App extends Component {
         const {term} = this.state
         const quantityWorkers = this.state.data.length;
         const quantityIncrease = this.state.data.filter(item => item.increase).length;
-        const filterData = this.filterWorker(this.state)
+        const filterData = this.onfilterWorker(this.state)
         const visibleData = this.serchWorker(filterData,term)
         return (
             <div className="app">
@@ -151,6 +156,7 @@ class App extends Component {
                     onUpdateSrch = {this.onUpdateSrch}
                     />
                     <AppFilter
+                    onNonfilter = {this.onNonfilter}
                     onUpdateFilterRise = {this.onUpdateFilterRise}
                     onUpdateFilterSalary = {this.onUpdateFilterSalary}
                     />
