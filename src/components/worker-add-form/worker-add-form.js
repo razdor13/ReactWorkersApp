@@ -10,8 +10,8 @@ class WorkerAddForm extends Component{
         this.state = {
             name : '',
             salary : '',
-            isValidName : true,
-            isValidSalary : true,
+            isValidName : null,
+            isValidSalary : null
         }
         
         
@@ -20,35 +20,25 @@ class WorkerAddForm extends Component{
     
 
     onValueChange = (e) => {
+        
         this.setState({
             [e.target.name] : e.target.value
         })
+        switch (e.target.name) {
+            case 'name':
+                e.target.value.trim()?this.setState({isValidName : true}):this.setState({isValidName : false})
+                break;
+            case 'salary':
+                e.target.value.trim()?this.setState({isValidSalary : true}):this.setState({isValidSalary : false})
+                break;
+        }
         
     }
     onValueSabmit = (e) => {
         const {onCreate} =this.props
         e.preventDefault();
         onCreate(this.state)
-        if (this.state.name.trim()) {
-            this.setState({
-                isValidName : false
-            })
-        }else{
-            this.setState({
-                isValidName : true
-            })
-        }
-        if (this.state.salary.trim()) {
-            this.setState({
-                isValidSalary : false
-            })
-        }else{
-            this.setState({
-                isValidSalary : true
-            })
-        }
-        console.log(this.state.isValidName)
-
+        
     }
     render() {
         const validFormStyles = {
@@ -59,8 +49,10 @@ class WorkerAddForm extends Component{
             border: '2px solid red',
             boxShadow: '0 0 5px red',
         };
-        const isValidName = this.state.isValidName ?   invalidFormStyles : validFormStyles
-        const isValidSalary = this.state.isValidSalary ? invalidFormStyles : validFormStyles 
+        let isValidName = this.state.isValidName ?validFormStyles : invalidFormStyles
+    
+        let isValidSalary = this.state.isValidSalary ?validFormStyles : invalidFormStyles 
+        
         const {name,salary} = this.state
         return (<div className="app-add-form">
             <h3>Додати нового співробітника</h3>
