@@ -34,13 +34,26 @@ class WorkerAddForm extends Component{
         }
         
     }
+    resetForm = () => {
+        this.setState({
+            name: '',
+            salary: '',
+            isValidName: null,
+            isValidSalary: null
+        });
+    }
     onValueSabmit = (e) => {
-        const {onCreate} =this.props
         e.preventDefault();
-        onCreate(this.state)
+        if (this.state.isValidName && this.state.isValidSalary) {
+            const {onCreate} =this.props
+            
+            onCreate(this.state)
+            this.resetForm()
+        }
         
     }
     render() {
+        const { name, salary, isValidName, isValidSalary } = this.state;
         const validFormStyles = {
             border: '2px solid transparent',
             boxShadow: 'none' 
@@ -49,17 +62,17 @@ class WorkerAddForm extends Component{
             border: '2px solid red',
             boxShadow: '0 0 5px red',
         };
-        let isValidName = this.state.isValidName ?validFormStyles : invalidFormStyles
-    
-        let isValidSalary = this.state.isValidSalary ?validFormStyles : invalidFormStyles 
+
+        const nameInputStyles = isValidName === null ? validFormStyles : isValidName ? validFormStyles : invalidFormStyles;
+        const salaryInputStyles = isValidSalary === null ? validFormStyles : isValidSalary ? validFormStyles : invalidFormStyles;
         
-        const {name,salary} = this.state
+        
         return (<div className="app-add-form">
             <h3>Додати нового співробітника</h3>
             <form
                 className="add-form d-flex">
                 <input type="text"
-                    style={isValidName}
+                    style={nameInputStyles}
                     className="form-control new-post-label"
                     placeholder="Як його звуть?" 
                     value={name}
@@ -67,7 +80,7 @@ class WorkerAddForm extends Component{
                     name='name'
                     />
                 <input type="number"
-                    style={isValidSalary}
+                    style={salaryInputStyles}
                     className="form-control new-post-label"
                     placeholder="З/П в $?" 
                     value={salary}
