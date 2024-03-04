@@ -24,12 +24,18 @@ class WorkerAddForm extends Component{
         this.setState({
             [e.target.name] : e.target.value
         })
+
+        const invalidFormStyles = {
+            border: '2px solid red',
+            boxShadow: '0 0 5px red',
+        };
+        
         switch (e.target.name) {
             case 'name':
-                e.target.value.trim()?this.setState({isValidName : true}):this.setState({isValidName : false})
+                e.target.value.trim().length<5?this.setState({isValidName : invalidFormStyles}):this.setState({isValidName : {}})
                 break;
             case 'salary':
-                e.target.value.trim()?this.setState({isValidSalary : true}):this.setState({isValidSalary : false})
+                e.target.value.trim().length<5?this.setState({isValidSalary : invalidFormStyles}):this.setState({isValidSalary : {}})
                 break;
         }
         
@@ -54,25 +60,14 @@ class WorkerAddForm extends Component{
     }
     render() {
         const { name, salary, isValidName, isValidSalary } = this.state;
-        const validFormStyles = {
-            border: '2px solid transparent',
-            boxShadow: 'none' 
-        };
-        const invalidFormStyles = {
-            border: '2px solid red',
-            boxShadow: '0 0 5px red',
-        };
-
-        const nameInputStyles = isValidName === null ? validFormStyles : isValidName ? validFormStyles : invalidFormStyles;
-        const salaryInputStyles = isValidSalary === null ? validFormStyles : isValidSalary ? validFormStyles : invalidFormStyles;
-        
+    
         
         return (<div className="app-add-form">
             <h3>Додати нового співробітника</h3>
             <form
                 className="add-form d-flex">
                 <input type="text"
-                    style={nameInputStyles}
+                    style={isValidName}
                     className="form-control new-post-label"
                     placeholder="Як його звуть?" 
                     value={name}
@@ -80,7 +75,7 @@ class WorkerAddForm extends Component{
                     name='name'
                     />
                 <input type="number"
-                    style={salaryInputStyles}
+                    style={isValidSalary}
                     className="form-control new-post-label"
                     placeholder="З/П в $?" 
                     value={salary}
