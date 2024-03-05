@@ -17,28 +17,24 @@ class WorkerAddForm extends Component{
         
     }
     
-    
-
     onValueChange = (e) => {
-        
-        this.setState({
-            [e.target.name] : e.target.value
-        })
-
         const invalidFormStyles = {
             border: '2px solid red',
             boxShadow: '0 0 5px red',
         };
-        
-        switch (e.target.name) {
-            case 'name':
-                e.target.value.trim().length<5?this.setState({isValidName : invalidFormStyles}):this.setState({isValidName : {}})
-                break;
-            case 'salary':
-                e.target.value.trim().length<5?this.setState({isValidSalary : invalidFormStyles}):this.setState({isValidSalary : {}})
-                break;
-        }
-        
+        console.log()
+        this.setState({
+            [e.target.name] : e.target.value
+        },()=> {
+            switch (e.target.name) {
+                case 'name':
+                    this.state.name.trim().length<5?this.setState({isValidName : invalidFormStyles}):this.setState({isValidName : {}})
+                    break;
+                case 'salary':
+                    this.state.salary.trim().length<5?this.setState({isValidSalary : invalidFormStyles}):this.setState({isValidSalary : {}})
+                    break;
+            }
+        })
     }
     resetForm = () => {
         this.setState({
@@ -49,8 +45,9 @@ class WorkerAddForm extends Component{
         });
     }
     onValueSabmit = (e) => {
+        const {isValidName , isValidSalary} = this.state
         e.preventDefault();
-        if (this.state.isValidName && this.state.isValidSalary) {
+        if (!isValidName.border && !isValidSalary.border) {
             const {onCreate} =this.props
             
             onCreate(this.state)
