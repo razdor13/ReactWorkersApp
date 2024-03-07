@@ -10,44 +10,33 @@ class WorkerAddForm extends Component{
         this.state = {
             name : '',
             salary : '',
-            isValidName : null,
-            isValidSalary : null
+            isValidName: true,
+            isValidSalary: true
         }
         
         
     }
-    
     onValueChange = (e) => {
-        const invalidFormStyles = {
-            border: '2px solid red',
-            boxShadow: '0 0 5px red',
-        };
-        console.log()
+        const newValue = e.target.value
+        const propName = e.target.name === 'name' ? 'isValidName' : 'isValidSalary'
         this.setState({
-            [e.target.name] : e.target.value
-        },()=> {
-            switch (e.target.name) {
-                case 'name':
-                    this.state.name.trim().length<5?this.setState({isValidName : invalidFormStyles}):this.setState({isValidName : {}})
-                    break;
-                case 'salary':
-                    this.state.salary.trim().length<5?this.setState({isValidSalary : invalidFormStyles}):this.setState({isValidSalary : {}})
-                    break;
-            }
+            [e.target.name] : newValue,
+            [propName]: newValue.length >= 5
         })
+        
     }
     resetForm = () => {
         this.setState({
             name: '',
             salary: '',
-            isValidName: null,
-            isValidSalary: null
+            isValidName: true,
+            isValidSalary: true
         });
     }
     onValueSabmit = (e) => {
-        const {isValidName , isValidSalary} = this.state
+        const {isValidName , isValidSalary,name,salary} = this.state
         e.preventDefault();
-        if (!isValidName.border && !isValidSalary.border) {
+        if (name.length >= 5 && salary.length >= 5) {
             const {onCreate} =this.props
             
             onCreate(this.state)
@@ -58,13 +47,17 @@ class WorkerAddForm extends Component{
     render() {
         const { name, salary, isValidName, isValidSalary } = this.state;
     
-        
+        const invalidFormStyles = {
+            border: '2px solid red',
+            boxShadow: '0 0 5px red',
+        };
+
         return (<div className="app-add-form">
             <h3>Додати нового співробітника</h3>
             <form
                 className="add-form d-flex">
                 <input type="text"
-                    style={isValidName}
+                    style={isValidName ? {}: invalidFormStyles}
                     className="form-control new-post-label"
                     placeholder="Як його звуть?" 
                     value={name}
@@ -72,7 +65,7 @@ class WorkerAddForm extends Component{
                     name='name'
                     />
                 <input type="number"
-                    style={isValidSalary}
+                    style={isValidSalary? {} : invalidFormStyles }
                     className="form-control new-post-label"
                     placeholder="З/П в $?" 
                     value={salary}
